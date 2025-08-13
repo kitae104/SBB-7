@@ -1,0 +1,43 @@
+/*textarea{*/
+/*    width: 100%;*/
+/*}*/
+
+/*input[type=submit] {*/
+/*    margin-top: 10px;*/
+/*}*/
+
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0;
+}
+
+body {
+    min-height: 100%;
+}
+
+
+.navbar-dark .navbar-nav .nav-link {
+    color: white !important;
+}
+.navbar-dark .navbar-brand {
+    color: white !important;
+}
+
+.content{
+    margin-bottom:50px;
+    margin-top: 50px;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+
+.footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 15px 0;
+    text-align: center;
+}
+

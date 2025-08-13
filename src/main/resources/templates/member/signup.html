@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout}">
+
+<th:block layout:fragment="css">
+  <style>
+      .fieldError {
+          color: #bd2130;
+      }
+  </style>
+</th:block>
+<!-- 사용자 스크립트 추가 -->
+<th:block layout:fragment="script">
+
+  <script th:inline="javascript">
+      $(document).ready(function(){
+          let errorMessage = [[${errorMessage}]];  // [[${errorMessage}]] : 변수 내용 출력
+          if(errorMessage != null){
+              alert(errorMessage);
+          }
+      });
+  </script>
+</th:block>
+<div layout:fragment="content" class="container my-3">
+  <div class="my-3 border-bottom">
+    <div>
+      <h4>회원가입</h4>
+    </div>
+  </div>
+  <form th:action="@{/member/signup}" th:object="${memberFormDto}" method="post">
+    <div class="mb-3">
+      <label for="username" class="form-label">사용자ID</label>
+      <input type="text" th:field="*{username}" id="username" class="form-control">
+      <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="fieldError">Incorrect data</p>
+    </div>
+    <div class="mb-3">
+      <label for="password1" class="form-label">비밀번호</label>
+      <input type="password" th:field="*{password1}" id="password1" class="form-control">
+      <p th:if="${#fields.hasErrors('password1')}" th:errors="*{password1}" class="fieldError">Incorrect data</p>
+    </div>
+    <div class="mb-3">
+      <label for="password2" class="form-label">비밀번호 확인</label>
+      <input type="password" th:field="*{password2}" id="password2" class="form-control">
+      <p th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}" class="fieldError">Incorrect data</p>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">이메일</label>
+      <input type="email" th:field="*{email}" id="email" class="form-control">
+      <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect data</p>
+    </div>
+    <button type="submit" class="btn btn-primary">회원가입</button>
+  </form>
+</div>
+
+</html>
