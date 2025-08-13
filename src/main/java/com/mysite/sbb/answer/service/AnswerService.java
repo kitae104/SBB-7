@@ -13,7 +13,7 @@ public class AnswerService {
 
   private final AnswerRespository answerRespository;
 
-  public void create(Question question, String content, Member author) {
+  public Answer create(Question question, String content, Member author) {
     Answer answer = Answer.builder()
         .content(content)
         .question(question)
@@ -21,6 +21,7 @@ public class AnswerService {
         .build();
 
     answerRespository.save(answer);
+    return answer;
   }
 
   public Answer getAnswer(Long id) {
@@ -36,5 +37,10 @@ public class AnswerService {
 
   public void delete(Answer answer) {
     answerRespository.delete(answer);
+  }
+
+  public void vote(Answer answer, Member member) {
+    answer.getVoter().add(member);
+    answerRespository.save(answer);
   }
 }

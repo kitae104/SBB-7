@@ -45,9 +45,9 @@ public class AnswerController {
       model.addAttribute("question", question);
       return "question/detail";
     }
-    answerService.create(question, answerFormDto.getContent(), member);
+    Answer answer = answerService.create(question, answerFormDto.getContent(), member);
     log.info("Creating answer for question ID: {}, content: {}, member: {}", id, answerFormDto.getContent(), member);
-    return "redirect:/question/detail/" + id;
+    return String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(), answer.getId());
   }
 
   @PreAuthorize("isAuthenticated()") // 로그인한 사용자만 접근 가능
@@ -77,7 +77,7 @@ public class AnswerController {
       throw new ResponseStatusException(HttpStatus.FORBIDDEN, "수정 권한이 없습니다.");
     }
     answerService.modify(answer, answerFormDto.getContent());
-    return "redirect:/question/detail/" + answer.getQuestion().getId();
+    return String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(), answer.getId());
   }
 
   @PreAuthorize("isAuthenticated()") // 로그인한 사용자만 접근 가능
@@ -89,5 +89,15 @@ public class AnswerController {
     }
     answerService.delete(answer);
     return "redirect:/question/detail/" + answer.getQuestion().getId();
+  }
+
+  @PreAuthorize("isAuthenticated()") // 로그인한 사용자만 접근 가능
+  @GetMapping("/vote/{id}")
+  public String voteAnswer(@PathVariable("id") Long id, Principal principal) {
+    Answer answer = answerService.getAnswer(id);
+    Member member = memberService.getMember(principal.getName());
+    answerService.vote(answer, member);
+    /*return "redirect:/question/detail/" + answer.getQuestion().getId();*/
+    return String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(), answer.getId());
   }
 }

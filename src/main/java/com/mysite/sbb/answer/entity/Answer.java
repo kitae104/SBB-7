@@ -9,11 +9,12 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
-@ToString
+@ToString(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -38,4 +39,7 @@ public class Answer extends BaseEntity {
   @ManyToOne(fetch = FetchType.LAZY) // 사용자 1명이 답변을 여러개 작성할 수 있음
   @JoinColumn(name = "member_id", nullable = false)
   private Member author;
+
+  @ManyToMany
+  Set<Member> voter;
 }

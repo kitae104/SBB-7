@@ -61,4 +61,9 @@ public class QuestionService {
   public void delete(Question question) {
     questionRepository.delete(question);
   }
+
+  public void vote(Question question, Member member) {
+    question.getVoter().add(member); // 질문에 투표한 사용자 추가(집합에 추가)
+    questionRepository.save(question);
+  }
 }

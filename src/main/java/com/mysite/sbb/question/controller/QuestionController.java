@@ -109,4 +109,13 @@ public class QuestionController {
     questionService.delete(question);
     return "redirect:/";
   }
+
+  @PreAuthorize("isAuthenticated()") // 로그인한 사용자만 접근 가능
+  @GetMapping("/vote/{id}")
+  public String voteQuestion(@PathVariable("id") Long id, Principal principal) {
+    Question question = questionService.getQuestion(id);
+    Member member = memberService.getMember(principal.getName());
+    questionService.vote(question, member);
+    return "redirect:/question/detail/" + id;
+  }
 }
