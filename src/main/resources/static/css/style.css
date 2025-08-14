@@ -41,3 +41,9 @@ body {
     text-align: center;
 }
 
+.bg-image {
+    background-image: url('/images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 800px; /* 필요에 맞게 높이 조정 */
+}

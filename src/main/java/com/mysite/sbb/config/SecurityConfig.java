@@ -33,11 +33,11 @@ public class SecurityConfig {
 
     http
         .authorizeHttpRequests((authorize) -> authorize
-            .requestMatchers("/css/**", "/js/**").permitAll()
+            .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
             .requestMatchers("/", "/member/**", "/question/**").permitAll()
             .anyRequest().authenticated());
-//            .requestMatchers(new AntPathRequestMatcher("/**")).permitAll());
-    return http.build(); // 실제 구현에서는 적절한 SecurityFilterChain 객체를 반환해야 합니다.
+
+    return http.build();
   }
 
   @Bean
